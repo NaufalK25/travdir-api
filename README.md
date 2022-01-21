@@ -91,8 +91,6 @@ Base URL: `-`
 }
 ```
 
-#### Output
-
 **GET** `/api/destination/:destinationSlug`
 
 #### Output
@@ -162,4 +160,4 @@ Base URL: `-`
 
 ### Credits
 
-*Copyright © 2022 Muhammad Naufal Kateni*
+_Copyright © 2022 Muhammad Naufal Kateni_
