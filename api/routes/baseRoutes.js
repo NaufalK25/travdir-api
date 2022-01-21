@@ -1,4 +1,4 @@
-const { baseUrl, HEADER } = require("../utils/constants");
+const { baseUrl, HEADER } = require("../configs/constants");
 
 const baseRoutes = (app) => {
     app.get("/", (req, res) => {
@@ -31,13 +31,11 @@ const baseRoutes = (app) => {
             });
     });
     app.get("*", (req, res) => {
-        res.status(404)
-            .header(HEADER)
-            .json({
-                success: false,
-                status: 404,
-                message: `Invalid url: ${req.originalUrl}`,
-            });
+        res.status(404).header(HEADER).json({
+            success: false,
+            status: 404,
+            message: `Invalid URL: ${req.originalUrl}`,
+        });
     });
 };
 

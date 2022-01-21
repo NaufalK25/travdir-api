@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const { DestinationModel } = require("../models/destinationModel");
-const { strToSlug } = require("../utils/createHelper");
-const { HEADER } = require("../utils/constants");
+const { strToSlug } = require("../helpers/createHelper");
+const { baseUrl, HEADER } = require("../configs/constants");
 
 const getAllDestinations = async (req, res) => {
     const allDestinations = await DestinationModel.find();
@@ -19,6 +19,7 @@ const getAllDestinations = async (req, res) => {
                         _id: destination._id,
                         name: destination.name,
                         slug: destination.slug,
+                        detail_url: `${baseUrl}destination/${destination.slug}`,
                         description: destination.description,
                         image: destination.image,
                         location: {
@@ -70,7 +71,128 @@ const createDestination = (req, res) => {
         });
 };
 
+const getDestination = async (req, res) => {
+    const destination = await DestinationModel.findOne({
+        slug: req.params.destinationSlug,
+    });
+
+    let success = true,
+        status = 200,
+        message = "OK";
+    if (!destination) {
+        [success, status, message] = [
+            false,
+            404,
+            `Destination with slug ${req.params.destinationSlug} not found`,
+        ];
+    }
+
+    const response = {
+        success,
+        status,
+        message,
+    };
+
+    if (success) {
+        response.results = {
+            destination: {
+                _id: destination._id,
+                name: destination.name,
+                slug: destination.slug,
+                description: destination.description,
+                image: destination.image,
+                location: {
+                    _id: destination.location._id,
+                    address: destination.location.address,
+                    city: destination.location.city,
+                    province: destination.location.province,
+                },
+            },
+        };
+    }
+
+    res.status(status).header(HEADER).json(response);
+};
+
+const updateDestination = async (req, res) => {
+    const destination = await DestinationModel.findOne({
+        slug: req.params.destinationSlug,
+    });
+
+    let success = true,
+        status = 200,
+        message = "Destination successfully updated!";
+    if (!destination) {
+        [success, status, message] = [
+            false,
+            404,
+            `Destination with slug ${req.params.destinationSlug} not found`,
+        ];
+    }
+
+    const response = {
+        success,
+        status,
+        message,
+    };
+
+    if (success) {
+        destination.name = req.body.name;
+        destination.slug = strToSlug(req.body.name);
+        destination.description = req.body.description;
+        destination.image = req.body.image;
+        destination.location = req.body.location;
+        destination.updatedAt = new Date();
+        destination.save();
+
+        response.results = {
+            destination: {
+                _id: destination._id,
+                name: destination.name,
+                slug: destination.slug,
+                description: destination.description,
+                image: destination.image,
+                location: {
+                    _id: destination.location._id,
+                    address: destination.location.address,
+                    city: destination.location.city,
+                    province: destination.location.province,
+                },
+                updatedAt: destination.updatedAt,
+            },
+        };
+    }
+
+    res.status(status).header(HEADER).json(response);
+};
+
+const deleteDestination = async (req, res) => {
+    const destination = await DestinationModel.findOne({
+        slug: req.params.destinationSlug,
+    });
+
+    let success = true,
+        status = 200,
+        message = "Destination successfully deleted!";
+    if (!destination) {
+        [success, status, message] = [
+            false,
+            404,
+            `Destination with slug ${req.params.destinationSlug} not found`,
+        ];
+    }
+
+    if (success) {
+        destination.deleteOne({ slug: req.params.destinationSlug });
+    }
+
+    res.status(status).header(HEADER).json({ success, status, message });
+};
+
 module.exports = {
     getAllDestinations,
     createDestination,
+    getDestination,
+    updateDestination,
+    deleteDestination,
 };
