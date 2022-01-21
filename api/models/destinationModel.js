@@ -16,7 +16,7 @@ const LocationSchema = new mongoose.Schema({
     },
 });
 
-const TouristDestinationSchema = new mongoose.Schema({
+const DestinationSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -54,16 +54,16 @@ const TouristDestinationSchema = new mongoose.Schema({
     },
 });
 
-TouristDestinationSchema.pre("save", function (next) {
+DestinationSchema.pre("save", function (next) {
     this.updatedAt = Date.now();
     next();
 });
 
-const TouristDestinationModel = mongoose.model(
-    "TouristDestination",
-    TouristDestinationSchema
+const DestinationModel = mongoose.model(
+    "Destination",
+    DestinationSchema
 );
 
 module.exports = {
-    TouristDestinationModel,
+    DestinationModel,
 };
