@@ -1,23 +1,22 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const morgan = require("morgan");
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(morgan("dev"));
+app.use(express.urlencoded({ extended: true }));
 
-const HEADER = {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-};
+require("./api/utils/connect");
 
-app.get("/", (req, res) => {
-    res.header(HEADER).json({
-        message: "Selamat datang di TravDir API! 👋",
-        documentation: "",
-    });
-});
+const {
+    touristDestinationRoutes,
+} = require("./api/routes/TouristDestinationRoutes");
+const { baseRoutes } = require("./api/routes/baseRoutes");
+
+touristDestinationRoutes(app);
+baseRoutes(app);
 
 app.listen(port, () => {
     console.log(`TravDir API is listening to http://localhost:${port}`);
