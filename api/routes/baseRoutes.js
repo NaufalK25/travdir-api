@@ -1,16 +1,34 @@
-const { HEADER } = require("../utils/constants");
+const { baseUrl, HEADER } = require("../utils/constants");
 
 const baseRoutes = (app) => {
     app.get("/", (req, res) => {
-        res.status(200).header(HEADER).json({
-            message: "Welcome to the TravDir API! 👋",
-            documentation: "https://github.com/NaufalK25/travdir-api",
-        });
+        res.status(200)
+            .header(HEADER)
+            .json({
+                success: true,
+                status: 200,
+                message: "OK",
+                results: {
+                    greet: "Welcome to the TravDir API! 👋",
+                    documentation: "https://github.com/NaufalK25/travdir-api",
+                    baseUrl,
+                },
+            });
     });
     app.get("/api", (req, res) => {
-        res.status(200).header(HEADER).json({
-            destination: "http://localhost:3000/api/destinations",
-        });
+        res.status(200)
+            .header(HEADER)
+            .json({
+                success: true,
+                status: 200,
+                message: "OK",
+                resutls: {
+                    destination: {
+                        url: `${baseUrl}destinations`,
+                        method: ["GET", "POST"],
+                    },
+                },
+            });
     });
     app.get("*", (req, res) => {
         res.status(404)
