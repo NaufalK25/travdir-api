@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
+import mongoose from 'mongoose';
+import validator from 'validator';
 
-const LocationSchema = new mongoose.Schema({
+const LocationSchema: mongoose.Schema = new mongoose.Schema({
     address: {
         type: String,
         required: true,
@@ -16,7 +16,7 @@ const LocationSchema = new mongoose.Schema({
     },
 });
 
-const DestinationSchema = new mongoose.Schema({
+const DestinationSchema: mongoose.Schema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -35,7 +35,7 @@ const DestinationSchema = new mongoose.Schema({
         type: String,
         required: true,
         validate: {
-            validator: (image_url) => {
+            validator: (image_url: string): boolean => {
                 return validator.isURL(image_url);
             },
             message: "Invalid image URL!",
@@ -54,16 +54,12 @@ const DestinationSchema = new mongoose.Schema({
     },
 });
 
-DestinationSchema.pre("save", function (next) {
+DestinationSchema.pre('save', function (next): void {
     this.updatedAt = Date.now();
     next();
 });
 
-const DestinationModel = mongoose.model(
+export const DestinationModel: any = mongoose.model(
     "Destination",
     DestinationSchema
 );
-
-module.exports = {
-    DestinationModel,
-};

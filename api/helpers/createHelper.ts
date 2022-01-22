@@ -1,11 +1,7 @@
-const strToSlug = (str) => {
+export const strToSlug = (str: string): string => {
     return str
         .toLowerCase()
         .replace(/[_\W]+/g, "-")
         .replace(/^-+/, "")
         .replace(/-+$/, "");
-};
-
-module.exports = {
-    strToSlug,
 };
