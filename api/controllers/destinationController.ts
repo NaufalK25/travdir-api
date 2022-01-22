@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+import { Request, Response } from "express";
 
-const { DestinationModel } = require("../models/destinationModel");
-const { strToSlug } = require("../helpers/createHelper");
-const { baseUrl, HEADER } = require("../configs/constants");
+import { DestinationModel } from "../models/destinationModel";
+import { strToSlug } from '../helpers/createHelper';
+import { baseUrl, HEADER } from '../configs/constants';
 
-const getAllDestinations = async (req, res) => {
-    const allDestinations = await DestinationModel.find();
+export const getAllDestinations = async (req: Request, res: Response): Promise<void> => {
+    const allDestinations: any = await DestinationModel.find();
     res.status(200)
         .header(HEADER)
         .json({
@@ -14,7 +14,7 @@ const getAllDestinations = async (req, res) => {
             message: "OK",
             results: {
                 count: allDestinations.length,
-                destinations: allDestinations.map((destination) => {
+                destinations: allDestinations.map((destination: any): object => {
                     return {
                         _id: destination._id,
                         name: destination.name,
@@ -34,8 +34,8 @@ const getAllDestinations = async (req, res) => {
         });
 };
 
-const createDestination = (req, res) => {
-    const newDestination = new DestinationModel({
+export const createDestination = (req: Request, res: Response): void => {
+    const newDestination: any = new DestinationModel({
         name: req.body.name,
         slug: strToSlug(req.body.name),
         description: req.body.description,
@@ -71,14 +71,14 @@ const createDestination = (req, res) => {
         });
 };
 
-const getDestination = async (req, res) => {
-    const destination = await DestinationModel.findOne({
+export const getDestination = async (req: Request, res: Response): Promise<void> => {
+    const destination: any = await DestinationModel.findOne({
         slug: req.params.destinationSlug,
     });
 
-    let success = true,
-        status = 200,
-        message = "OK";
+    let success: boolean = true,
+        status: number = 200,
+        message: string = "OK";
     if (!destination) {
         [success, status, message] = [
             false,
@@ -87,10 +87,11 @@ const getDestination = async (req, res) => {
         ];
     }
 
-    const response = {
+    const response: { success: boolean, status: number, message: string, results: object | undefined } = {
         success,
         status,
         message,
+        results: undefined
     };
 
     if (success) {
@@ -114,14 +115,14 @@ const getDestination = async (req, res) => {
     res.status(status).header(HEADER).json(response);
 };
 
-const updateDestination = async (req, res) => {
-    const destination = await DestinationModel.findOne({
+export const updateDestination = async (req: Request, res: Response): Promise<void> => {
+    const destination: any = await DestinationModel.findOne({
         slug: req.params.destinationSlug,
     });
 
-    let success = true,
-        status = 200,
-        message = "Destination successfully updated!";
+    let success: boolean = true,
+        status: number = 200,
+        message: string = "Destination successfully updated!";
     if (!destination) {
         [success, status, message] = [
             false,
@@ -130,10 +131,11 @@ const updateDestination = async (req, res) => {
         ];
     }
 
-    const response = {
+    const response: { success: boolean, status: number, message: string, results: object | undefined } = {
         success,
         status,
         message,
+        results: undefined
     };
 
     if (success) {
@@ -166,14 +168,14 @@ const updateDestination = async (req, res) => {
     res.status(status).header(HEADER).json(response);
 };
 
-const deleteDestination = async (req, res) => {
-    const destination = await DestinationModel.findOne({
+export const deleteDestination = async (req: Request, res: Response): Promise<void> => {
+    const destination: any = await DestinationModel.findOne({
         slug: req.params.destinationSlug,
     });
 
-    let success = true,
-        status = 200,
-        message = "Destination successfully deleted!";
+    let success: boolean = true,
+        status: number = 200,
+        message: string = "Destination successfully deleted!";
     if (!destination) {
         [success, status, message] = [
             false,
@@ -187,12 +189,4 @@ const deleteDestination = async (req, res) => {
     }
 
     res.status(status).header(HEADER).json({ success, status, message });
-};
-
-module.exports = {
-    getAllDestinations,
-    createDestination,
-    getDestination,
-    updateDestination,
-    deleteDestination,
 };

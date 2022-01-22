@@ -1,7 +1,9 @@
-const { baseUrl, HEADER } = require("../configs/constants");
+import { Request, Response, Application } from 'express';
 
-const baseRoutes = (app) => {
-    app.get("/", (req, res) => {
+import { baseUrl, HEADER } from '../configs/constants';
+
+export const baseRoutes = (app: Application): void => {
+    app.get("/", (req: Request, res: Response) => {
         res.status(200)
             .header(HEADER)
             .json({
@@ -15,7 +17,7 @@ const baseRoutes = (app) => {
                 },
             });
     });
-    app.get("/api", (req, res) => {
+    app.get("/api", (req: Request, res: Response): void => {
         res.status(200)
             .header(HEADER)
             .json({
@@ -23,22 +25,15 @@ const baseRoutes = (app) => {
                 status: 200,
                 message: "OK",
                 resutls: {
-                    destination: {
-                        url: `${baseUrl}destinations`,
-                        method: ["GET", "POST"],
-                    },
+                    destinations: `${baseUrl}destinations`,
                 },
             });
     });
-    app.get("*", (req, res) => {
+    app.get("*", (req: Request, res: Response): void => {
         res.status(404).header(HEADER).json({
             success: false,
             status: 404,
             message: `Invalid URL: ${req.originalUrl}`,
         });
     });
-};
-
-module.exports = {
-    baseRoutes,
 };
