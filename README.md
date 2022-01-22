@@ -27,7 +27,7 @@ npx tsc -w
 4. Run application
 
 ```
-npx tsc && nodemon app.js
+npx tsc && npx nodemon app.js
 ```
 
 Status: `Under Development`
