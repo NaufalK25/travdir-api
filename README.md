@@ -6,29 +6,29 @@ REST API that contain list of all tourist destination located in Indonesia. Buil
 
 1. Clone the repository
 
-```
-git clone https://github.com/NaufalK25/travdir-api.git
-```
+    ```
+    git clone https://github.com/NaufalK25/travdir-api.git
+    ```
 
 2. Install all dependencies including dev dependencies
 
-```
-npm i
-// or
-npm install
-```
+    ```
+    npm i
+    // or
+    npm install
+    ```
 
 3. Run typeScript compiler
 
-```
-npx tsc -w
-```
+    ```
+    npx tsc -w
+    ```
 
 4. Run application
 
-```
-npx tsc && npx nodemon app.js
-```
+    ```
+    npx tsc && npx nodemon app.js
+    ```
 
 Status: `Under Development`
 
