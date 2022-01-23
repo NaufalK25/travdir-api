@@ -1,13 +1,14 @@
-import express, { Application } from "express";
+import express, { Express } from "express";
 import bodyParser from "body-parser";
 import morgan from "morgan";
-require("dotenv").config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 import { baseUrl } from "./api/configs/constants";
 import { destinationRoutes } from "./api/routes/destinationRoutes";
 import { baseRoutes } from "./api/routes/baseRoutes";
 
-const app: Application = express();
+const app: Express = express();
 const port: string | number = process.env.PORT || 3000;
 
 app.use(morgan("dev"));
