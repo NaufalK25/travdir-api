@@ -2,10 +2,10 @@
     "name": "travdir-api",
     "version": "1.0.0",
     "description": "Indonesia travel destination API",
-    "main": "app.js",
+    "main": "app.ts",
     "scripts": {
         "dev": "tsc -w",
-        "start": "tsc && nodemon --ext \"js,json,ts\" app.js",
+        "start": "tsc && nodemon --ext \"js,json,ts\" --exec \"npx ts-node app.ts\"",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "NaufalK25",

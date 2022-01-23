@@ -21,13 +21,19 @@ REST API that contain list of all tourist destination located in Indonesia. Buil
 3. Run typeScript compiler
 
     ```
+    npm run dev
+    // or
     npx tsc -w
     ```
 
 4. Run application
 
     ```
-    npx tsc && npx nodemon app.js
+    npm start
+    // or
+    npm run start
+    // or
+    npx tsc && npx nodemon --ext "js,json,ts" --exec "npx ts-node app.ts"
     ```
 
 Status: `Under Development`
