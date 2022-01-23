@@ -19,15 +19,22 @@ export const getAllDestinations = async (req: Request, res: Response): Promise<v
                         _id: destination._id,
                         name: destination.name,
                         slug: destination.slug,
-                        detail_url: `${baseUrl}destination/${destination.slug}`,
                         description: destination.description,
                         image: destination.image,
+                        buildYear: destination.buildYear,
                         location: {
                             _id: destination.location._id,
+                            coordinates: {
+                                _id: destination.location.coordinates?._id,
+                                latitude: destination.location.coordinates?.latitude,
+                                longitude: destination.location.coordinates?.longitude,
+                            },
                             address: destination.location.address,
                             city: destination.location.city,
                             province: destination.location.province,
+                            postalCode: destination.location.postalCode,
                         },
+                        types: destination.types,
                     };
                 }),
             },
@@ -40,7 +47,9 @@ export const createDestination = (req: Request, res: Response): void => {
         slug: strToSlug(req.body.name),
         description: req.body.description,
         image: req.body.image,
+        buildYear: req.body.buildYear,
         location: req.body.location,
+        types: req.body.types,
         createdAt: new Date(),
         updatedAt: new Date(),
     });
@@ -58,12 +67,20 @@ export const createDestination = (req: Request, res: Response): void => {
                     slug: newDestination.slug,
                     description: newDestination.description,
                     image: newDestination.image,
+                    buildYear: newDestination.buildYear,
                     location: {
                         _id: newDestination.location._id,
+                        coordinates: {
+                            _id: newDestination.location.coordinates?._id,
+                            latitude: newDestination.location.coordinates?.latitude,
+                            longitude: newDestination.location.coordinates?.longitude,
+                        },
                         address: newDestination.location.address,
                         city: newDestination.location.city,
                         province: newDestination.location.province,
+                        postalCode: newDestination.location.postalCode,
                     },
+                    types: newDestination.types,
                     createdAt: newDestination.createdAt,
                     updatedAt: newDestination.updatedAt,
                 },
@@ -102,12 +119,20 @@ export const getDestination = async (req: Request, res: Response): Promise<void>
                 slug: destination.slug,
                 description: destination.description,
                 image: destination.image,
+                buildYear: destination.buildYear,
                 location: {
                     _id: destination.location._id,
+                    coordinates: {
+                        _id: destination.location.coordinates?._id,
+                        latitude: destination.location.coordinates?.latitude,
+                        longitude: destination.location.coordinates?.longitude,
+                    },
                     address: destination.location.address,
                     city: destination.location.city,
                     province: destination.location.province,
+                    postalCode: destination.location.postalCode,
                 },
+                types: destination.types,
             },
         };
     }
@@ -143,7 +168,9 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
         destination.slug = strToSlug(req.body.name);
         destination.description = req.body.description;
         destination.image = req.body.image;
+        destination.buildYear = req.body.buildYear;
         destination.location = req.body.location;
+        destination.types = req.body.types;
         destination.updatedAt = new Date();
         destination.save();
 
@@ -154,12 +181,20 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
                 slug: destination.slug,
                 description: destination.description,
                 image: destination.image,
+                buildYear: destination.buildYear,
                 location: {
                     _id: destination.location._id,
+                    coordinates: {
+                        _id: destination.location.coordinates?._id,
+                        latitude: destination.location.coordinates?.latitude,
+                        longitude: destination.location.coordinates?.longitude,
+                    },
                     address: destination.location.address,
                     city: destination.location.city,
                     province: destination.location.province,
+                    postalCode: destination.location.postalCode,
                 },
+                types: destination.types,
                 updatedAt: destination.updatedAt,
             },
         };
