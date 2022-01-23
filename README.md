@@ -2,6 +2,40 @@
 
 REST API that contain list of all tourist destination located in Indonesia. Built with [Node.js](https://nodejs.org/en/) and [Express.js](https://expressjs.com/).
 
+### How To Run In Development
+
+1. Clone the repository
+
+    ```
+    git clone https://github.com/NaufalK25/travdir-api.git
+    ```
+
+2. Install all dependencies including dev dependencies
+
+    ```
+    npm i
+    // or
+    npm install
+    ```
+
+3. Run typeScript compiler
+
+    ```
+    npm run dev
+    // or
+    npx tsc -w
+    ```
+
+4. Run application
+
+    ```
+    npm start
+    // or
+    npm run start
+    // or
+    npx tsc && npx nodemon --ext "js,json,ts" --exec "npx ts-node app.ts"
+    ```
+
 Status: `Under Development`
 
 ### Documentation
