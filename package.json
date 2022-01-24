@@ -5,7 +5,7 @@
     "main": "app.ts",
     "scripts": {
         "dev": "tsc -w",
-        "start": "tsc && nodemon --ext \"js,json,ts\" --exec \"npx ts-node app.ts\"",
+        "start": "tsc && nodemon --exec \"npx ts-node app.ts\"",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "NaufalK25",

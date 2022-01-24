@@ -33,7 +33,7 @@ REST API that contain list of all tourist destination located in Indonesia. Buil
     // or
     npm run start
     // or
-    npx tsc && npx nodemon --ext "js,json,ts" --exec "npx ts-node app.ts"
+    npx tsc && npx nodemon --exec "npx ts-node app.ts"
     ```
 
 Status: `Under Development`

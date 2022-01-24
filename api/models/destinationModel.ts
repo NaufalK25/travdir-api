@@ -75,10 +75,10 @@ const destinationSchema: Schema = new Schema({
         type: String,
         required: true,
         validate: {
-            validator: (image_url: string): boolean => {
-                return validator.isURL(image_url);
+            validator: (image: string): boolean => {
+                return /^[a-z0-9-]+\.(jpg|jpeg|png)$/.test(image);
             },
-            message: "Invalid image URL!",
+            message: "Invalid image extension!",
         },
         unique: true,
     },

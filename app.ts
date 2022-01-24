@@ -8,12 +8,16 @@ import { baseUrl } from "./api/configs/constants";
 import { destinationRoutes } from "./api/routes/destinationRoutes";
 import { baseRoutes } from "./api/routes/baseRoutes";
 
+import { createFolder} from "./api/helpers/createHelper";
+
 const app: Express = express();
 const port: string | number = process.env.PORT || 3000;
 
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static("public"));
 
 require("./api/configs/connect");
 
