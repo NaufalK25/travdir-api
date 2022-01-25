@@ -1,4 +1,12 @@
-.env
+# NodeJS
 /node_modules
 /dist
+
+# Environment variables
+.env
+
+# Visual Studio Code
+.vscode
+
+# Miscellaneous
 /temp

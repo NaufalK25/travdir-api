@@ -1,8 +1,7 @@
 import fs from 'fs';
 
 export const strToSlug = (str: string): string => {
-    return str
-        .toLowerCase()
+    return str?.toLowerCase()
         .replace(/[_\W]+/g, "-")
         .replace(/^-+/, "")
         .replace(/-+$/, "");
@@ -10,7 +9,7 @@ export const strToSlug = (str: string): string => {
 
 export const createFolder = (path: string): void => {
     if (!fs.existsSync(path)) {
-        fs.mkdirSync(path, { recursive: true });
+        fs.mkdirSync(path, { recursive: true, });
     }
 };
 

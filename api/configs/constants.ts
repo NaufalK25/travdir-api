@@ -1,11 +1,11 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-export const baseUrl: string = `${process.env.BASE_URL || 'http://localhost'}:${process.env.port || 3000}`;
+export const baseUrl = `${process.env.BASE_URL || 'http://localhost'}:${process.env.port || 3000}`;
 
-export const apiUrl: string = `${baseUrl}/api/`;
+export const apiUrl = `${baseUrl}/api/`;
 
-export const imageUrl: string = `${baseUrl}/uploads/`;
+export const imageUrl = `${baseUrl}/uploads/`;
 
 export const HEADER: { 'Content-Type': string, 'Access-Control-Allow-Origin': string, 'Access-Control-Allow-Methods': string } = {
     "Content-Type": "application/json",
