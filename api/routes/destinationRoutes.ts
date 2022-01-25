@@ -8,6 +8,6 @@ export const destinationRoutes = (app: Express) => {
         .post(createDestination);
     app.route("/api/destination/:destinationSlug")
         .get(getDestination)
-        .put(updateDestination)
+        .patch(updateDestination)
         .delete(deleteDestination);
 };

@@ -178,7 +178,7 @@ Base URL: `-`
 }
 ```
 
-**PUT** `/api/destination/:destinationSlug`
+**PATCH** `/api/destination/:destinationSlug`
 
 #### Output
 
