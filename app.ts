@@ -1,12 +1,12 @@
-import express, { Express, } from "express";
 import bodyParser from "body-parser";
-import morgan from "morgan";
 import dotenv from 'dotenv';
-dotenv.config();
+import express, { Express } from "express";
+import morgan from "morgan";
+import { baseUrl } from "./api/configs/constants";
+import { baseRoutes } from "./api/routes/baseRoutes";
+import { destinationRoutes } from "./api/routes/destinationRoutes";
 
-import { baseUrl, } from "./api/configs/constants";
-import { destinationRoutes, } from "./api/routes/destinationRoutes";
-import { baseRoutes, } from "./api/routes/baseRoutes";
+dotenv.config();
 
 const app: Express = express();
 const port: string | number = process.env.PORT || 3000;

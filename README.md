@@ -58,7 +58,7 @@ Base URL: `-`
                 "name": "Jembatan Ampera",
                 "slug": "jembatan-ampera",
                 "description": "Jembatan Ampera adalah jembatan yang dibangun atas penderitaan rakyat Palembang.",
-                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Jembatan_Ampera_%28Palembang%29.jpg/1200px-Jembatan_Ampera_%28Palembang%29.jpg",
+                "image": "jembatan-ampera.jpg",
                 "buildYear": 1962,
                 "location": {
                     "_id": "61ed249940c46892c19847de",
@@ -81,7 +81,7 @@ Base URL: `-`
                 "name": "Punti Kayu",
                 "slug": "punti-kayu",
                 "description": "Taman Wisata Alam Punti Kayu Palembang adalah sebuah hutan wisata dan rekreasi keluarga. Kawasan hutan penghasil oksigen segar ini berada di tengah Kota Palembang. Di sini, wisatawan dapat menikmati indahnya panorama alami.",
-                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/PuntiKayu.jpg/1200px-PuntiKayu.jpg",
+                "image": "punti-kayu.jpg",
                 "buildYear": 1937,
                 "location": {
                     "_id": "61eba8f699c2187c5f6987fb",
@@ -121,7 +121,7 @@ Base URL: `-`
             "name": "Punti Kayu",
             "slug": "punti-kayu",
             "description": "Taman Wisata Alam Punti Kayu Palembang adalah sebuah hutan wisata dan rekreasi keluarga. Kawasan hutan penghasil oksigen segar ini berada di tengah Kota Palembang. Di sini, wisatawan dapat menikmati indahnya panorama alami.",
-            "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/PuntiKayu.jpg/1200px-PuntiKayu.jpg",
+            "image": "punti-kayu.jpg",
             "buildYear": 1937,
             "location": {
                 "_id": "61eba8f699c2187c5f6987fb",
@@ -158,7 +158,7 @@ Base URL: `-`
             "name": "Punti Kayu",
             "slug": "punti-kayu",
             "description": "Taman Wisata Alam Punti Kayu Palembang adalah sebuah hutan wisata dan rekreasi keluarga. Kawasan hutan penghasil oksigen segar ini berada di tengah Kota Palembang. Di sini, wisatawan dapat menikmati indahnya panorama alami.",
-            "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/PuntiKayu.jpg/1200px-PuntiKayu.jpg",
+            "image": "punti-kayu.jpg",
             "buildYear": 1937,
             "location": {
                 "_id": "61eba8f699c2187c5f6987fb",
@@ -193,7 +193,7 @@ Base URL: `-`
             "name": "Punti Kayu",
             "slug": "punti-kayu",
             "description": "Taman Wisata Alam Punti Kayu Palembang adalah sebuah hutan wisata dan rekreasi keluarga. Kawasan hutan penghasil oksigen segar ini berada di tengah Kota Palembang. Di sini, wisatawan dapat menikmati indahnya panorama alami.",
-            "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/PuntiKayu.jpg/1200px-PuntiKayu.jpg",
+            "image": "punti-kayu.jpg",
             "buildYear": 1937,
             "location": {
                 "_id": "61eba8f699c2187c5f6987fb",

@@ -1,6 +1,6 @@
-import { Request, Response, Express, } from 'express';
+import { Express, Request, Response } from 'express';
+import { apiUrl, HEADER } from '../configs/constants';
 
-import { apiUrl, HEADER, } from '../configs/constants';
 
 export const baseRoutes = (app: Express): void => {
     app.get("/", (req: Request, res: Response) => {

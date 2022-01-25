@@ -1,6 +1,6 @@
-import { Express, } from 'express';
+import { Express } from 'express';
+import { createDestination, deleteDestination, getAllDestinations, getDestination, updateDestination } from "../controllers/destinationController";
 
-import { getAllDestinations, createDestination, getDestination, updateDestination, deleteDestination, } from "../controllers/destinationController";
 
 export const destinationRoutes = (app: Express) => {
     app.route("/api/destinations")

@@ -1,6 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 export const baseUrl = `${process.env.BASE_URL || 'http://localhost'}:${process.env.port || 3000}`;
 
 export const apiUrl = `${baseUrl}/api/`;

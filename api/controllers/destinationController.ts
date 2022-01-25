@@ -1,8 +1,8 @@
-import { Request, Response, } from "express";
+import { Request, Response } from "express";
+import { HEADER, imageUrl } from '../configs/constants';
+import { createFolder, strToSlug } from '../helpers/createHelper';
+import { DestinationModel } from "../models/destinationModel";
 
-import { DestinationModel, } from "../models/destinationModel";
-import { strToSlug, createFolder, } from '../helpers/createHelper';
-import { imageUrl, HEADER, } from '../configs/constants';
 
 export const getAllDestinations = async (req: Request, res: Response): Promise<void> => {
     const allDestinations: any = await DestinationModel.find();
@@ -42,7 +42,7 @@ export const getAllDestinations = async (req: Request, res: Response): Promise<v
 };
 
 export const createDestination = (req: Request, res: Response): void => {
-    createFolder('./uploads/destination');
+    createFolder('./public/uploads/destination');
     const newDestination: any = new DestinationModel({
         name: req.body.name,
         slug: strToSlug(req.body.name),
