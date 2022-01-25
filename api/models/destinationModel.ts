@@ -1,7 +1,7 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, } from 'mongoose';
 import validator from 'validator';
 
-const coordinateSchema: Schema = new Schema({
+const coordinatesSchema: Schema = new Schema({
     latitude: {
         type: Number,
         required: false,
@@ -31,7 +31,7 @@ const coordinateSchema: Schema = new Schema({
 });
 
 const locationSchema: Schema = new Schema({
-    coordinates: coordinateSchema,
+    coordinates: coordinatesSchema,
     address: {
         type: String,
         required: true,
@@ -51,7 +51,7 @@ const locationSchema: Schema = new Schema({
             validator: (postalCode: string): boolean => {
                 return /^[1-9]\d{4}$/.test(postalCode);
             },
-            message: 'Invalid postal code!'
+            message: 'Invalid postal code!',
         }
     }
 });
@@ -75,10 +75,10 @@ const destinationSchema: Schema = new Schema({
         type: String,
         required: true,
         validate: {
-            validator: (image_url: string): boolean => {
-                return validator.isURL(image_url);
+            validator: (image: string): boolean => {
+                return /^[a-z0-9-]+\.(jpg|jpeg|png)$/.test(image);
             },
-            message: "Invalid image URL!",
+            message: "Invalid image extension!",
         },
         unique: true,
     },
@@ -115,5 +115,5 @@ destinationSchema.pre('save', function (next): void {
 
 export const DestinationModel: any = model(
     "Destination",
-    destinationSchema
+    destinationSchema,
 );

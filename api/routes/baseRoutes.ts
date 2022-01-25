@@ -1,8 +1,8 @@
-import { Request, Response, Application } from 'express';
+import { Request, Response, Express, } from 'express';
 
-import { baseUrl, HEADER } from '../configs/constants';
+import { apiUrl, HEADER, } from '../configs/constants';
 
-export const baseRoutes = (app: Application): void => {
+export const baseRoutes = (app: Express): void => {
     app.get("/", (req: Request, res: Response) => {
         res.status(200)
             .header(HEADER)
@@ -13,7 +13,7 @@ export const baseRoutes = (app: Application): void => {
                 results: {
                     greet: "Welcome to the TravDir API! 👋",
                     documentation: "https://github.com/NaufalK25/travdir-api",
-                    baseUrl,
+                    apiUrl,
                 },
             });
     });
@@ -25,7 +25,7 @@ export const baseRoutes = (app: Application): void => {
                 status: 200,
                 message: "OK",
                 resutls: {
-                    destinations: `${baseUrl}destinations`,
+                    destinations: `${apiUrl}destinations`,
                 },
             });
     });

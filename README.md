@@ -18,22 +18,14 @@ REST API that contain list of all tourist destination located in Indonesia. Buil
     npm install
     ```
 
-3. Run typeScript compiler
-
-    ```
-    npm run dev
-    // or
-    npx tsc -w
-    ```
-
-4. Run application
+3. Run application
 
     ```
     npm start
     // or
-    npm run start
+    npx run start
     // or
-    npx tsc && npx nodemon --ext "js,json,ts" --exec "npx ts-node app.ts"
+    npx tsc && npx ts-node app.ts
     ```
 
 Status: `Under Development`
@@ -143,9 +135,7 @@ Base URL: `-`
                 "province": "Sumatera Selatan",
                 "postalCode": "30511"
             },
-            "types": [
-                "alam"
-            ],
+            "types": ["alam"],
             "createdAt": "2022-01-21T17:24:37.141Z",
             "updatedAt": "2022-01-21T17:24:37.141Z"
         }
@@ -182,15 +172,13 @@ Base URL: `-`
                 "province": "Sumatera Selatan",
                 "postalCode": "30511"
             },
-            "types": [
-                "alam"
-            ]
+            "types": ["alam"]
         }
     }
 }
 ```
 
-**PUT** `/api/destination/:destinationSlug`
+**PATCH** `/api/destination/:destinationSlug`
 
 #### Output
 
@@ -219,9 +207,7 @@ Base URL: `-`
                 "province": "Sumatera Selatan",
                 "postalCode": "30511"
             },
-            "types": [
-                "alam"
-            ],
+            "types": ["alam"],
             "updatedAt": "2022-01-21T17:26:10.134Z"
         }
     }

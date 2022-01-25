@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import { Request, Response, } from "express";
 
-import { DestinationModel } from "../models/destinationModel";
-import { strToSlug } from '../helpers/createHelper';
-import { baseUrl, HEADER } from '../configs/constants';
+import { DestinationModel, } from "../models/destinationModel";
+import { strToSlug, createFolder, } from '../helpers/createHelper';
+import { imageUrl, HEADER, } from '../configs/constants';
 
 export const getAllDestinations = async (req: Request, res: Response): Promise<void> => {
     const allDestinations: any = await DestinationModel.find();
@@ -20,7 +20,7 @@ export const getAllDestinations = async (req: Request, res: Response): Promise<v
                         name: destination.name,
                         slug: destination.slug,
                         description: destination.description,
-                        image: destination.image,
+                        image: `${imageUrl}destination/${destination.image}`,
                         buildYear: destination.buildYear,
                         location: {
                             _id: destination.location._id,
@@ -42,6 +42,7 @@ export const getAllDestinations = async (req: Request, res: Response): Promise<v
 };
 
 export const createDestination = (req: Request, res: Response): void => {
+    createFolder('./uploads/destination');
     const newDestination: any = new DestinationModel({
         name: req.body.name,
         slug: strToSlug(req.body.name),
@@ -66,7 +67,7 @@ export const createDestination = (req: Request, res: Response): void => {
                     name: newDestination.name,
                     slug: newDestination.slug,
                     description: newDestination.description,
-                    image: newDestination.image,
+                    image: `${imageUrl}destination/${newDestination.image}`,
                     buildYear: newDestination.buildYear,
                     location: {
                         _id: newDestination.location._id,
@@ -93,9 +94,9 @@ export const getDestination = async (req: Request, res: Response): Promise<void>
         slug: req.params.destinationSlug,
     });
 
-    let success: boolean = true,
-        status: number = 200,
-        message: string = "OK";
+    let success = true,
+        status = 200,
+        message = "OK";
     if (!destination) {
         [success, status, message] = [
             false,
@@ -108,7 +109,7 @@ export const getDestination = async (req: Request, res: Response): Promise<void>
         success,
         status,
         message,
-        results: undefined
+        results: undefined,
     };
 
     if (success) {
@@ -118,7 +119,7 @@ export const getDestination = async (req: Request, res: Response): Promise<void>
                 name: destination.name,
                 slug: destination.slug,
                 description: destination.description,
-                image: destination.image,
+                image: `${imageUrl}destination/${destination.image}`,
                 buildYear: destination.buildYear,
                 location: {
                     _id: destination.location._id,
@@ -145,9 +146,9 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
         slug: req.params.destinationSlug,
     });
 
-    let success: boolean = true,
-        status: number = 200,
-        message: string = "Destination successfully updated!";
+    let success = true,
+        status = 200,
+        message = "Destination successfully updated!";
     if (!destination) {
         [success, status, message] = [
             false,
@@ -160,17 +161,17 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
         success,
         status,
         message,
-        results: undefined
+        results: undefined,
     };
 
     if (success) {
-        destination.name = req.body.name;
-        destination.slug = strToSlug(req.body.name);
-        destination.description = req.body.description;
-        destination.image = req.body.image;
-        destination.buildYear = req.body.buildYear;
-        destination.location = req.body.location;
-        destination.types = req.body.types;
+        destination.name = req.body?.name || destination.name;
+        destination.slug = strToSlug(req.body?.name) || destination.slug;
+        destination.description = req.body?.description || destination.description;
+        destination.image = req.body?.image || destination.image;
+        destination.buildYear = req.body?.buildYear || destination.buildYear;
+        destination.location = req.body?.location || destination.location;
+        destination.types = req.body?.types || destination.types;
         destination.updatedAt = new Date();
         destination.save();
 
@@ -180,7 +181,7 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
                 name: destination.name,
                 slug: destination.slug,
                 description: destination.description,
-                image: destination.image,
+                image: `${imageUrl}destination/${destination.image}`,
                 buildYear: destination.buildYear,
                 location: {
                     _id: destination.location._id,
@@ -208,9 +209,9 @@ export const deleteDestination = async (req: Request, res: Response): Promise<vo
         slug: req.params.destinationSlug,
     });
 
-    let success: boolean = true,
-        status: number = 200,
-        message: string = "Destination successfully deleted!";
+    let success = true,
+        status = 200,
+        message = "Destination successfully deleted!";
     if (!destination) {
         [success, status, message] = [
             false,
