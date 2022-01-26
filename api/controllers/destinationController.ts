@@ -1,8 +1,7 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { HEADER, imageUrl } from '../configs/constants';
-import { createFolder, strToSlug } from '../helpers/createHelper';
+import { createFolder, strToSlug, updateFile } from '../helpers/apiHelper';
 import { DestinationModel } from "../models/destinationModel";
-
 
 export const getAllDestinations = async (req: Request, res: Response): Promise<void> => {
     const allDestinations: any = await DestinationModel.find();
@@ -20,7 +19,7 @@ export const getAllDestinations = async (req: Request, res: Response): Promise<v
                         name: destination.name,
                         slug: destination.slug,
                         description: destination.description,
-                        image: `${imageUrl}destination/${destination.image}`,
+                        image: `${imageUrl}destinations/${destination.image}`,
                         buildYear: destination.buildYear,
                         location: {
                             _id: destination.location._id,
@@ -42,7 +41,7 @@ export const getAllDestinations = async (req: Request, res: Response): Promise<v
 };
 
 export const createDestination = (req: Request, res: Response): void => {
-    createFolder('./public/uploads/destination');
+    createFolder('./uploads/destinations');
     const newDestination: any = new DestinationModel({
         name: req.body.name,
         slug: strToSlug(req.body.name),
@@ -67,7 +66,7 @@ export const createDestination = (req: Request, res: Response): void => {
                     name: newDestination.name,
                     slug: newDestination.slug,
                     description: newDestination.description,
-                    image: `${imageUrl}destination/${newDestination.image}`,
+                    image: `${imageUrl}destinations/${newDestination.image}`,
                     buildYear: newDestination.buildYear,
                     location: {
                         _id: newDestination.location._id,
@@ -119,7 +118,7 @@ export const getDestination = async (req: Request, res: Response): Promise<void>
                 name: destination.name,
                 slug: destination.slug,
                 description: destination.description,
-                image: `${imageUrl}destination/${destination.image}`,
+                image: `${imageUrl}destinations/${destination.image}`,
                 buildYear: destination.buildYear,
                 location: {
                     _id: destination.location._id,
@@ -181,7 +180,7 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
                 name: destination.name,
                 slug: destination.slug,
                 description: destination.description,
-                image: `${imageUrl}destination/${destination.image}`,
+                image: `${imageUrl}destinations/${destination.image}`,
                 buildYear: destination.buildYear,
                 location: {
                     _id: destination.location._id,

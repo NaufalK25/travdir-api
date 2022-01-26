@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
+import { CallbackError, connect } from 'mongoose';
 
-mongoose.connect(
+connect(
     `${process.env.MONGO_URI || 'mongodb://localhost:27017/'}${process.env.DB_NAME}`,
-    (err: mongoose.CallbackError) => {
+    (err: CallbackError) => {
         if (!err) {
             console.log('MongoDB Connection Succeeded.');
         } else {
