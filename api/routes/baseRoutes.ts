@@ -1,6 +1,6 @@
 import { Express, Request, Response } from 'express';
 import { apiUrl, HEADER } from '../configs/constants';
-
+import { err404Route } from '../routes/errorRoutes';
 
 export const baseRoutes = (app: Express): void => {
     app.get("/", (req: Request, res: Response) => {
@@ -29,11 +29,5 @@ export const baseRoutes = (app: Express): void => {
                 },
             });
     });
-    app.get("*", (req: Request, res: Response): void => {
-        res.status(404).header(HEADER).json({
-            success: false,
-            status: 404,
-            message: `Invalid URL: ${req.originalUrl}`,
-        });
-    });
+    app.get("*", err404Route);
 };

@@ -59,7 +59,7 @@ export const createDestination = (req: Request, res: Response): void => {
         .json({
             success: true,
             status: 201,
-            message: "Created",
+            message: "Destination successfully created!",
             results: {
                 destination: {
                     _id: newDestination._id,

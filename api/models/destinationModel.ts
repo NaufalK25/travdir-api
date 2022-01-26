@@ -93,14 +93,14 @@ const destinationSchema: Schema = new Schema({
         },
     },
     location: locationSchema,
+    types: {
+        type: [String],
+        required: false,
+    },
     createdAt: {
         type: Date,
         default: Date.now,
         immutable: true,
-    },
-    types: {
-        type: [String],
-        required: false,
     },
     updatedAt: {
         type: Date,

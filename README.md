@@ -23,7 +23,7 @@ REST API that contain list of all tourist destination located in Indonesia. Buil
     ```
     npm start
     // or
-    npx run start
+    npm run start
     // or
     npx tsc && npx ts-node app.ts
     ```
