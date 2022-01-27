@@ -21,12 +21,12 @@ export const err405Route = (req: Request, res: Response): void => {
         })
 };
 
-export const err500Route = (err: Error, req: Request, res: Response): void => {
+export const err500Route = (req: Request, res: Response): void => {
     res.status(500)
         .header(HEADER)
         .json({
             success: false,
             status: 500,
-            message: `Internal server error: ${err.message}`,
+            message: "Internal server error!",
         });
 };

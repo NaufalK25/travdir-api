@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { HEADER, imageUrl } from '../configs/constants';
-import { createFolder, strToSlug, updateFile } from '../helpers/apiHelper';
+import { createFolder, strToSlug } from '../helpers/apiHelper';
 import { DestinationModel } from "../models/destinationModel";
 
 export const getAllDestinations = async (req: Request, res: Response): Promise<void> => {

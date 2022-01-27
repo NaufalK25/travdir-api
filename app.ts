@@ -6,7 +6,6 @@ import morgan from "morgan";
 import { baseUrl } from "./api/configs/constants";
 import { baseRoutes } from "./api/routes/baseRoutes";
 import { destinationRoutes } from "./api/routes/destinationRoutes";
-import { err500Route } from "./api/routes/errorRoutes";
 
 // Get all environment variables
 dotenv.config();
@@ -28,7 +27,6 @@ require("./api/configs/connect");
 // Routes
 destinationRoutes(app);
 baseRoutes(app);
-app.use(err500Route);
 
 // Start server
 app.listen(port, (): void => {
