@@ -93,14 +93,14 @@ const destinationSchema: Schema = new Schema({
         },
     },
     location: locationSchema,
+    types: {
+        type: [String],
+        required: false,
+    },
     createdAt: {
         type: Date,
         default: Date.now,
         immutable: true,
-    },
-    types: {
-        type: [String],
-        required: false,
     },
     updatedAt: {
         type: Date,
@@ -108,12 +108,9 @@ const destinationSchema: Schema = new Schema({
     },
 });
 
-destinationSchema.pre('save', function (next): void {
+destinationSchema.pre('save', function (next: any): void {
     this.updatedAt = Date.now();
     next();
 });
 
-export const DestinationModel: any = model(
-    "Destination",
-    destinationSchema,
-);
+export const DestinationModel: any = model("Destination", destinationSchema);

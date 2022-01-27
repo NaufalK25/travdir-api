@@ -21,7 +21,7 @@ export const deleteFile = (path: string, fileName: string): void => {
     fs.unlinkSync(`${path}/${fileName}`);
 }
 
-export const updateFile = (path: string, newFileName: string, oldFileName: string, newFile: any): void => {
+export const updateFile = (path: string, oldFileName: string, newFileName: string, newFile: any): void => {
     deleteFile(path, oldFileName);
     uploadFile(path, newFileName, newFile);
 }
