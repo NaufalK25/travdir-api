@@ -14,7 +14,7 @@ export const baseRoutes = (app: Express): void => {
                     results: {
                         greet: "Welcome to the TravDir API! 👋",
                         documentation: "https://github.com/NaufalK25/travdir-api",
-                        apiUrl,
+                        baseUrl: apiUrl,
                     },
                 });
         })

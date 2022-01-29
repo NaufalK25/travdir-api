@@ -1,10 +1,11 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
+import { Document } from "mongodb";
 import { HEADER, imageUrl } from '../configs/constants';
 import { createFolder, strToSlug } from '../helpers/apiHelper';
 import { DestinationModel } from "../models/destinationModel";
 
 export const getAllDestinations = async (req: Request, res: Response): Promise<void> => {
-    const allDestinations: any = await DestinationModel.find();
+    const allDestinations = await DestinationModel.find();
     res.status(200)
         .header(HEADER)
         .json({
@@ -13,7 +14,7 @@ export const getAllDestinations = async (req: Request, res: Response): Promise<v
             message: "OK",
             results: {
                 count: allDestinations.length,
-                destinations: allDestinations.map((destination: any): object => {
+                destinations: allDestinations.map((destination) => {
                     return {
                         _id: destination._id,
                         name: destination.name,
@@ -42,7 +43,7 @@ export const getAllDestinations = async (req: Request, res: Response): Promise<v
 
 export const createDestination = (req: Request, res: Response): void => {
     createFolder('./uploads/destinations');
-    const newDestination: any = new DestinationModel({
+    const newDestination = new DestinationModel({
         name: req.body.name,
         slug: strToSlug(req.body.name),
         description: req.body.description,
@@ -89,7 +90,7 @@ export const createDestination = (req: Request, res: Response): void => {
 };
 
 export const getDestination = async (req: Request, res: Response): Promise<void> => {
-    const destination: any = await DestinationModel.findOne({
+    const destination = await DestinationModel.findOne({
         slug: req.params.destinationSlug,
     });
 
@@ -111,7 +112,7 @@ export const getDestination = async (req: Request, res: Response): Promise<void>
         results: undefined,
     };
 
-    if (success) {
+    if (success && destination) {
         response.results = {
             destination: {
                 _id: destination._id,
@@ -141,7 +142,7 @@ export const getDestination = async (req: Request, res: Response): Promise<void>
 };
 
 export const updateDestination = async (req: Request, res: Response): Promise<void> => {
-    const destination: any = await DestinationModel.findOne({
+    const destination = await DestinationModel.findOne({
         slug: req.params.destinationSlug,
     });
 
@@ -163,7 +164,7 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
         results: undefined,
     };
 
-    if (success) {
+    if (success && destination) {
         destination.name = req.body?.name || destination.name;
         destination.slug = strToSlug(req.body?.name) || destination.slug;
         destination.description = req.body?.description || destination.description;
@@ -204,7 +205,7 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
 };
 
 export const deleteDestination = async (req: Request, res: Response): Promise<void> => {
-    const destination: any = await DestinationModel.findOne({
+    const destination = await DestinationModel.findOne({
         slug: req.params.destinationSlug,
     });
 
@@ -219,7 +220,7 @@ export const deleteDestination = async (req: Request, res: Response): Promise<vo
         ];
     }
 
-    if (success) {
+    if (success && destination) {
         destination.deleteOne({ slug: req.params.destinationSlug });
     }
 

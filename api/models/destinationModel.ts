@@ -1,7 +1,8 @@
-import { model, Schema, } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import validator from 'validator';
+import { ICoordinates, IDestination, ILocation } from '../interfaces/destinationInterface';
 
-const coordinatesSchema: Schema = new Schema({
+const coordinatesSchema = new Schema<ICoordinates>({
     latitude: {
         type: Number,
         required: false,
@@ -30,7 +31,7 @@ const coordinatesSchema: Schema = new Schema({
     },
 });
 
-const locationSchema: Schema = new Schema({
+const locationSchema = new Schema<ILocation>({
     coordinates: coordinatesSchema,
     address: {
         type: String,
@@ -56,7 +57,7 @@ const locationSchema: Schema = new Schema({
     }
 });
 
-const destinationSchema: Schema = new Schema({
+const destinationSchema = new Schema<IDestination>({
     name: {
         type: String,
         required: true,
@@ -108,9 +109,4 @@ const destinationSchema: Schema = new Schema({
     },
 });
 
-destinationSchema.pre('save', function (next: any): void {
-    this.updatedAt = Date.now();
-    next();
-});
-
-export const DestinationModel: any = model("Destination", destinationSchema);
+export const DestinationModel = model<IDestination>("Destination", destinationSchema);

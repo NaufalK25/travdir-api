@@ -7,13 +7,13 @@ export const strToSlug = (str: string): string => {
         .replace(/-+$/, "");
 };
 
-export const createFolder = (path: string): void => {
+export const createFolder = (path: fs.PathLike): void => {
     if (!fs.existsSync(path)) {
         fs.mkdirSync(path, { recursive: true, });
     }
 };
 
-export const uploadFile = (path: string, fileName: string, file: any): void => {
+export const uploadFile = (path: string, fileName: string, file: string | NodeJS.ArrayBufferView): void => {
     fs.writeFileSync(`${path}/${fileName}`, file);
 }
 
@@ -21,7 +21,7 @@ export const deleteFile = (path: string, fileName: string): void => {
     fs.unlinkSync(`${path}/${fileName}`);
 }
 
-export const updateFile = (path: string, oldFileName: string, newFileName: string, newFile: any): void => {
+export const updateFile = (path: string, oldFileName: string, newFileName: string, newFile: NodeJS.ArrayBufferView): void => {
     deleteFile(path, oldFileName);
     uploadFile(path, newFileName, newFile);
 }
