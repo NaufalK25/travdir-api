@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { HEADER } from "../configs/constants";
+import { HEADER } from "../config/constants";
 
 export const err404Route = (req: Request, res: Response): void => {
     res.status(404)

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Document } from "mongodb";
 import { CallbackError } from "mongoose";
-import { HEADER, imageUrl } from '../configs/constants';
+import { HEADER, imageUrl } from '../config/constants';
 import { createFolder, deleteFile, strToSlug } from '../helpers/apiHelper';
 import { DestinationModel } from "../models/destinationModel";
 
@@ -58,17 +58,25 @@ export const createDestination = (req: Request, res: Response): void => {
 
     let success = true,
         status = 200,
-        message = "OK";
+        message = "OK",
+        errors: { field: string; message: string; }[] | undefined | string = undefined;
 
     newDestination.save((err: CallbackError, destination: Document): void => {
         if (err) {
-            [success, status, message] = [false, 400, err.message,];
+            [success, status, message, errors] = [false, 400, 'Validation Error!', err.toString().replace('ValidationError:', '').split(',').map((msgPerField: string): { field: string, message: string } => {
+                const field = msgPerField?.trim().split(':');
+                return {
+                    field: field[0]?.trim(),
+                    message: field[1]?.trim(),
+                }
+            }),];
         }
 
-        const response: { success: boolean, status: number, message: string, results: object | undefined } = {
+        const response: { success: boolean, status: number, message: string | object, errors: { field: string; message: string; }[] | undefined | string, results: object | undefined } = {
             success,
             status,
             message,
+            errors,
             results: undefined,
         };
 
@@ -99,7 +107,6 @@ export const createDestination = (req: Request, res: Response): void => {
                 },
             };
         }
-
         res.status(status).header(HEADER).json(response);
     });
 };
@@ -148,7 +155,6 @@ export const getDestination = async (req: Request, res: Response): Promise<void>
             },
         };
     }
-
     res.status(status).header(HEADER).json(response);
 };
 
@@ -159,15 +165,17 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
 
     let success = true,
         status = 200,
-        message = "Destination successfully updated!";
+        message = "Destination successfully updated!",
+        errors: { field: string; message: string }[] | undefined = undefined;
     if (!destination) {
         [success, status, message] = [false, 404, `Destination with slug ${req.params.destinationSlug} not found`,];
     }
 
-    const response: { success: boolean, status: number, message: string, results: object | undefined } = {
+    const response: { success: boolean, status: number, message: string | object, errors: { field: string; message: string; }[] | undefined | string, results: object | undefined } = {
         success,
         status,
         message,
+        errors,
         results: undefined,
     };
 
@@ -184,35 +192,46 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
         destination.location = req.body?.location || destination.location;
         destination.types = req.body?.types || destination.types;
         destination.updatedAt = new Date();
-        destination.save();
 
-        response.results = {
-            destination: {
-                _id: destination._id,
-                name: destination.name,
-                slug: destination.slug,
-                description: destination.description,
-                image: `${imageUrl}destinations/${destination.image}`,
-                buildYear: destination.buildYear,
-                location: {
-                    _id: destination.location._id,
-                    coordinates: {
-                        _id: destination.location.coordinates?._id,
-                        latitude: destination.location.coordinates?.latitude,
-                        longitude: destination.location.coordinates?.longitude,
+        destination.save()
+            .then((_destination: Document): void => {
+                response.results = {
+                    destination: {
+                        _id: destination._id,
+                        name: destination.name,
+                        slug: destination.slug,
+                        description: destination.description,
+                        image: `${imageUrl}destinations/${destination.image}`,
+                        buildYear: destination.buildYear,
+                        location: {
+                            _id: destination.location._id,
+                            coordinates: {
+                                _id: destination.location.coordinates?._id,
+                                latitude: destination.location.coordinates?.latitude,
+                                longitude: destination.location.coordinates?.longitude,
+                            },
+                            address: destination.location.address,
+                            city: destination.location.city,
+                            province: destination.location.province,
+                            postalCode: destination.location.postalCode,
+                        },
+                        types: destination.types,
+                        updatedAt: destination.updatedAt,
                     },
-                    address: destination.location.address,
-                    city: destination.location.city,
-                    province: destination.location.province,
-                    postalCode: destination.location.postalCode,
-                },
-                types: destination.types,
-                updatedAt: destination.updatedAt,
-            },
-        };
+                };
+                res.status(status).header(HEADER).json(response);
+            })
+            .catch((err: CallbackError): void => {
+                [response.success, response.status, response.message, response.errors] = [false, 400, 'Validation Error!', err?.toString().replace('ValidationError:', '').split(',').map((msgPerField: string): { field: string; message: string } => {
+                    const field = msgPerField?.trim().split(':');
+                    return {
+                        field: field[0]?.trim(),
+                        message: field[1]?.trim(),
+                    }
+                }),];
+                res.status(status).header(HEADER).json(response);
+            });
     };
-    
-    res.status(status).header(HEADER).json(response);
 };
 
 export const deleteDestination = async (req: Request, res: Response): Promise<void> => {

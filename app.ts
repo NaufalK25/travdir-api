@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from 'dotenv';
 import express from "express";
 import morgan from "morgan";
-import { baseUrl } from "./api/configs/constants";
+import { baseUrl } from "./api/config/constants";
 import { baseRoutes } from "./api/routes/baseRoutes";
 import { destinationRoutes } from "./api/routes/destinationRoutes";
 
@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true, }));
 app.use('/uploads', express.static('uploads'));
 
 // Connect to database
-require("./api/configs/connect");
+require("./api/config/database");
 
 // Routes
 destinationRoutes(app);

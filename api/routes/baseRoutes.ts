@@ -1,5 +1,5 @@
 import { Express, Request, Response } from 'express';
-import { apiUrl, HEADER } from '../configs/constants';
+import { apiUrl, HEADER } from '../config/constants';
 import { err404Route, err405Route, err500Route } from '../routes/errorRoutes';
 
 export const baseRoutes = (app: Express): void => {
