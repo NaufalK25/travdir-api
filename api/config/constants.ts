@@ -1,4 +1,4 @@
-export const baseUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`;
+export const baseUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT || 80}`;
 
 export const apiUrl = `${baseUrl}/api/`;
 

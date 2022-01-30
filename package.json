@@ -2,12 +2,12 @@
     "name": "travdir-api",
     "version": "1.0.0",
     "description": "Indonesia travel destination API",
-    "main": "./dist/app.js",
+    "main": "dist/app.js",
     "scripts": {
         "tsw": "tsc -w",
         "lint": "eslint . --ext .ts",
         "dev": "tsc && tsnd --respawn --pretty --transpile-only app.ts",
-        "start": "tsc && node ./dist/app.js",
+        "start": "tsc && ts-node app.ts",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "NaufalK25",
