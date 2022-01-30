@@ -19,27 +19,25 @@ export const strToSlug = (str: string): string => {
  * @returns {string} The random string.
  * @example
  * randomString(16);
- * // returns gjewpm3621l1kf4g
+ * // returns ehgqb4y4gw000000
  */
 export const randomString = (length: number): string => {
     return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
-}
+};
 
+/** Create specific folder recursively from the given path.
+ * @param {fs.PathLike} path The path to create folder.
+ */
 export const createFolder = (path: fs.PathLike): void => {
     if (!fs.existsSync(path)) {
         fs.mkdirSync(path, { recursive: true, });
     }
 };
 
-export const uploadFile = (path: string, fileName: string, file: string | NodeJS.ArrayBufferView): void => {
-    fs.writeFileSync(`${path}/${fileName}`, file);
-}
-
+/** Delete specific file using the given path and file name.
+ * @param {string} path The path to the file.
+ * @param {string} fileName The file name.
+ */
 export const deleteFile = (path: string, fileName: string): void => {
     fs.unlinkSync(`${path}/${fileName}`);
-}
-
-export const updateFile = (path: string, oldFileName: string, newFileName: string, newFile: NodeJS.ArrayBufferView): void => {
-    deleteFile(path, oldFileName);
-    uploadFile(path, newFileName, newFile);
-}
+};

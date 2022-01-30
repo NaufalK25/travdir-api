@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Document } from "mongodb";
 import { CallbackError } from "mongoose";
-import { HEADER, imageUrl } from '../configs/constants';
+import { HEADER, imageUrl } from '../config/constants';
 import { createFolder, deleteFile, strToSlug } from '../helpers/apiHelper';
 import { DestinationModel } from "../models/destinationModel";
 
@@ -211,7 +211,7 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
             },
         };
     };
-    
+
     res.status(status).header(HEADER).json(response);
 };
 
