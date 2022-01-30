@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import { Document } from "mongodb";
+import { CallbackError } from "mongoose";
 import { HEADER, imageUrl } from '../configs/constants';
-import { createFolder, strToSlug } from '../helpers/apiHelper';
+import { createFolder, deleteFile, strToSlug } from '../helpers/apiHelper';
 import { DestinationModel } from "../models/destinationModel";
 
 export const getAllDestinations = async (req: Request, res: Response): Promise<void> => {
@@ -47,21 +48,32 @@ export const createDestination = (req: Request, res: Response): void => {
         name: req.body.name,
         slug: strToSlug(req.body.name),
         description: req.body.description,
-        image: req.body.image,
+        image: req.file?.filename,
         buildYear: req.body.buildYear,
         location: req.body.location,
         types: req.body.types,
         createdAt: new Date(),
         updatedAt: new Date(),
     });
-    newDestination.save();
-    res.status(201)
-        .header(HEADER)
-        .json({
-            success: true,
-            status: 201,
-            message: "Destination successfully created!",
-            results: {
+
+    let success = true,
+        status = 200,
+        message = "OK";
+
+    newDestination.save((err: CallbackError, destination: Document): void => {
+        if (err) {
+            [success, status, message] = [false, 400, err.message,];
+        }
+
+        const response: { success: boolean, status: number, message: string, results: object | undefined } = {
+            success,
+            status,
+            message,
+            results: undefined,
+        };
+
+        if (success && newDestination) {
+            response.results = {
                 destination: {
                     _id: newDestination._id,
                     name: newDestination.name,
@@ -85,8 +97,11 @@ export const createDestination = (req: Request, res: Response): void => {
                     createdAt: newDestination.createdAt,
                     updatedAt: newDestination.updatedAt,
                 },
-            },
-        });
+            };
+        }
+
+        res.status(status).header(HEADER).json(response);
+    });
 };
 
 export const getDestination = async (req: Request, res: Response): Promise<void> => {
@@ -98,11 +113,7 @@ export const getDestination = async (req: Request, res: Response): Promise<void>
         status = 200,
         message = "OK";
     if (!destination) {
-        [success, status, message] = [
-            false,
-            404,
-            `Destination with slug ${req.params.destinationSlug} not found`,
-        ];
+        [success, status, message] = [false, 404, `Destination with slug ${req.params.destinationSlug} not found`,];
     }
 
     const response: { success: boolean, status: number, message: string, results: object | undefined } = {
@@ -150,11 +161,7 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
         status = 200,
         message = "Destination successfully updated!";
     if (!destination) {
-        [success, status, message] = [
-            false,
-            404,
-            `Destination with slug ${req.params.destinationSlug} not found`,
-        ];
+        [success, status, message] = [false, 404, `Destination with slug ${req.params.destinationSlug} not found`,];
     }
 
     const response: { success: boolean, status: number, message: string, results: object | undefined } = {
@@ -165,10 +172,14 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
     };
 
     if (success && destination) {
+        if (req.file) {
+            deleteFile('./uploads/destinations', destination.image);
+        }
+
         destination.name = req.body?.name || destination.name;
         destination.slug = strToSlug(req.body?.name) || destination.slug;
         destination.description = req.body?.description || destination.description;
-        destination.image = req.body?.image || destination.image;
+        destination.image = req.file?.filename || destination.image;
         destination.buildYear = req.body?.buildYear || destination.buildYear;
         destination.location = req.body?.location || destination.location;
         destination.types = req.body?.types || destination.types;
@@ -199,8 +210,8 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
                 updatedAt: destination.updatedAt,
             },
         };
-    }
-
+    };
+    
     res.status(status).header(HEADER).json(response);
 };
 
@@ -213,14 +224,11 @@ export const deleteDestination = async (req: Request, res: Response): Promise<vo
         status = 200,
         message = "Destination successfully deleted!";
     if (!destination) {
-        [success, status, message] = [
-            false,
-            404,
-            `Destination with slug ${req.params.destinationSlug} not found`,
-        ];
+        [success, status, message] = [false, 404, `Destination with slug ${req.params.destinationSlug} not found`,];
     }
 
     if (success && destination) {
+        deleteFile('./uploads/destinations', destination.image);
         destination.deleteOne({ slug: req.params.destinationSlug });
     }
 
