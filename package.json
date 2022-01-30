@@ -2,7 +2,7 @@
     "name": "travdir-api",
     "version": "1.0.0",
     "description": "Indonesia travel destination API",
-    "main": "app.ts",
+    "main": "dist/app.js",
     "scripts": {
         "tsw": "tsc -w",
         "lint": "eslint . --ext .ts",
@@ -22,6 +22,7 @@
         "cors": "^2.8.5",
         "dotenv": "^14.2.0",
         "express": "^4.17.2",
+        "mongodb": "^4.3.1",
         "mongoose": "^6.1.7",
         "multer": "^1.4.4",
         "path": "^0.12.7",
