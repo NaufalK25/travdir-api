@@ -8,7 +8,7 @@
         "postinstall": "npm run build-ts",
         "start": "npm run serve",
         "serve": "tsc && ts-node app.ts",
-        "watch-node": "tsc && tsnd --respawn --pretty --transpile-only app.ts",
+        "dev": "tsc && tsnd --respawn --pretty --transpile-only app.ts",
         "watch-ts": "tsc -w",
         "lint": "eslint . --ext .ts",
         "test": "echo \"Error: no test specified\" && exit 1"
