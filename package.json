@@ -7,7 +7,7 @@
         "tsw": "tsc -w",
         "lint": "eslint . --ext .ts",
         "dev": "tsc && tsnd --respawn --pretty --transpile-only app.ts",
-        "start": "tsc && ts-node app.ts",
+        "start": "tsc && node dist/app.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "NaufalK25",
