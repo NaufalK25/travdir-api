@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
     },
 });
 
-export const destinationRoutes = (app: Express) => {
+export const destinationRoutes = (app: Express): void => {
     app.route("/api/destinations")
         .get(getAllDestinations)
         .post(multer({ storage }).single('image'), createDestination)

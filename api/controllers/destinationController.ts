@@ -59,7 +59,7 @@ export const createDestination = (req: Request, res: Response): void => {
     let success = true,
         status = 200,
         message = "OK",
-        errors: { field: string; message: string; }[] | undefined | string = undefined;
+        errors: { field: string; message: string; }[] | undefined = undefined;
 
     newDestination.save((err: CallbackError, destination: Document): void => {
         if (err) {
@@ -72,7 +72,7 @@ export const createDestination = (req: Request, res: Response): void => {
             }),];
         }
 
-        const response: { success: boolean, status: number, message: string | object, errors: { field: string; message: string; }[] | undefined | string, results: object | undefined } = {
+        const response: { success: boolean, status: number, message: string | object, errors: { field: string; message: string; }[] | undefined, results: object | undefined } = {
             success,
             status,
             message,
@@ -171,7 +171,7 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
         [success, status, message] = [false, 404, `Destination with slug ${req.params.destinationSlug} not found`,];
     }
 
-    const response: { success: boolean, status: number, message: string | object, errors: { field: string; message: string; }[] | undefined | string, results: object | undefined } = {
+    const response: { success: boolean, status: number, message: string | object, errors: { field: string; message: string; }[] | undefined, results: object | undefined } = {
         success,
         status,
         message,
