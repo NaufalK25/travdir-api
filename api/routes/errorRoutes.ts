@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { HEADER } from "../config/constants";
 
-export const err404Route = (req: Request, res: Response): void => {
+export const err404Route = (req: Request, res: Response) => {
     res.status(404)
         .header(HEADER)
         .json({
@@ -11,7 +11,7 @@ export const err404Route = (req: Request, res: Response): void => {
         });
 };
 
-export const err405Route = (req: Request, res: Response): void => {
+export const err405Route = (req: Request, res: Response) => {
     res.status(405)
         .header(HEADER)
         .json({
@@ -21,7 +21,7 @@ export const err405Route = (req: Request, res: Response): void => {
         })
 };
 
-export const err500Route = (req: Request, res: Response): void => {
+export const err500Route = (req: Request, res: Response) => {
     res.status(500)
         .header(HEADER)
         .json({

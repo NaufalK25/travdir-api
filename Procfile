@@ -1,1 +1,1 @@
-web: npx tsc && npx ts-node app.ts
+web: node dist/app.js

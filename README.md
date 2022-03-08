@@ -24,8 +24,6 @@ REST API that contain list of all tourist destination located in Indonesia. Buil
     npm start
     // or
     npm run start
-    // or
-    npx tsc && npx ts-node app.ts
     ```
 
 Status: `Deployed`
@@ -34,7 +32,7 @@ Status: `Deployed`
 
 | Parameter         | Description                                 |
 | ----------------- | ------------------------------------------- |
-| `destinationSlug` | slug for destination to get detail about it |
+| `destinationSlug` | slug to get detail for each destination |
 
 Base URL: https://travdir-api.herokuapp.com/
 

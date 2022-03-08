@@ -1,11 +1,10 @@
 import { Request, Response } from "express";
-import { Document } from "mongodb";
 import { CallbackError } from "mongoose";
 import { HEADER, imageUrl } from '../config/constants';
 import { createFolder, deleteFile, strToSlug } from '../helpers/apiHelper';
 import { DestinationModel } from "../models/destinationModel";
 
-export const getAllDestinations = async (req: Request, res: Response): Promise<void> => {
+export const getAllDestinations = async (req: Request, res: Response) => {
     const allDestinations = await DestinationModel.find();
     res.status(200)
         .header(HEADER)
@@ -42,7 +41,7 @@ export const getAllDestinations = async (req: Request, res: Response): Promise<v
         });
 };
 
-export const createDestination = (req: Request, res: Response): void => {
+export const createDestination = (req: Request, res: Response) => {
     createFolder('./uploads/destinations');
     const newDestination = new DestinationModel({
         name: req.body.name,
@@ -61,9 +60,9 @@ export const createDestination = (req: Request, res: Response): void => {
         message = "OK",
         errors: { field: string; message: string; }[] | undefined = undefined;
 
-    newDestination.save((err: CallbackError, destination: Document): void => {
+    newDestination.save((err, destination) => {
         if (err) {
-            [success, status, message, errors] = [false, 400, 'Validation Error!', err.toString().replace('ValidationError:', '').split(',').map((msgPerField: string): { field: string, message: string } => {
+            [success, status, message, errors] = [false, 400, 'Validation Error!', err.toString().replace('ValidationError:', '').split(',').map((msgPerField) => {
                 const field = msgPerField?.trim().split(':');
                 return {
                     field: field[0]?.trim(),
@@ -72,7 +71,7 @@ export const createDestination = (req: Request, res: Response): void => {
             }),];
         }
 
-        const response: { success: boolean, status: number, message: string | object, errors: { field: string; message: string; }[] | undefined, results: object | undefined } = {
+        const response: { success: boolean; status: number; message: string | object; errors: { field: string; message: string; }[] | undefined; results: object | undefined; } = {
             success,
             status,
             message,
@@ -111,19 +110,18 @@ export const createDestination = (req: Request, res: Response): void => {
     });
 };
 
-export const getDestination = async (req: Request, res: Response): Promise<void> => {
+export const getDestination = async (req: Request, res: Response) => {
     const destination = await DestinationModel.findOne({
         slug: req.params.destinationSlug,
     });
-
     let success = true,
         status = 200,
         message = "OK";
     if (!destination) {
-        [success, status, message] = [false, 404, `Destination with slug ${req.params.destinationSlug} not found`,];
+        [success, status, message,] = [false, 404, `Destination with slug ${req.params.destinationSlug} not found`,];
     }
 
-    const response: { success: boolean, status: number, message: string, results: object | undefined } = {
+    const response: { success: boolean; status: number; message: string; results: object | undefined; } = {
         success,
         status,
         message,
@@ -158,7 +156,7 @@ export const getDestination = async (req: Request, res: Response): Promise<void>
     res.status(status).header(HEADER).json(response);
 };
 
-export const updateDestination = async (req: Request, res: Response): Promise<void> => {
+export const updateDestination = async (req: Request, res: Response) => {
     const destination = await DestinationModel.findOne({
         slug: req.params.destinationSlug,
     });
@@ -168,10 +166,10 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
         message = "Destination successfully updated!",
         errors: { field: string; message: string }[] | undefined = undefined;
     if (!destination) {
-        [success, status, message] = [false, 404, `Destination with slug ${req.params.destinationSlug} not found`,];
+        [success, status, message,] = [false, 404, `Destination with slug ${req.params.destinationSlug} not found`,];
     }
 
-    const response: { success: boolean, status: number, message: string | object, errors: { field: string; message: string; }[] | undefined, results: object | undefined } = {
+    const response: { success: boolean; status: number; message: string | object; errors: { field: string; message: string; }[] | undefined; results: object | undefined; } = {
         success,
         status,
         message,
@@ -194,7 +192,7 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
         destination.updatedAt = new Date();
 
         destination.save()
-            .then((_destination: Document): void => {
+            .then(_destination => {
                 response.results = {
                     destination: {
                         _id: destination._id,
@@ -221,8 +219,8 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
                 };
                 res.status(status).header(HEADER).json(response);
             })
-            .catch((err: CallbackError): void => {
-                [response.success, response.status, response.message, response.errors] = [false, 400, 'Validation Error!', err?.toString().replace('ValidationError:', '').split(',').map((msgPerField: string): { field: string; message: string } => {
+            .catch((err: CallbackError) => {
+                [response.success, response.status, response.message, response.errors,] = [false, 400, 'Validation Error!', err?.toString().replace('ValidationError:', '').split(',').map((msgPerField) => {
                     const field = msgPerField?.trim().split(':');
                     return {
                         field: field[0]?.trim(),
@@ -234,7 +232,7 @@ export const updateDestination = async (req: Request, res: Response): Promise<vo
     };
 };
 
-export const deleteDestination = async (req: Request, res: Response): Promise<void> => {
+export const deleteDestination = async (req: Request, res: Response) => {
     const destination = await DestinationModel.findOne({
         slug: req.params.destinationSlug,
     });
@@ -243,7 +241,7 @@ export const deleteDestination = async (req: Request, res: Response): Promise<vo
         status = 200,
         message = "Destination successfully deleted!";
     if (!destination) {
-        [success, status, message] = [false, 404, `Destination with slug ${req.params.destinationSlug} not found`,];
+        [success, status, message,] = [false, 404, `Destination with slug ${req.params.destinationSlug} not found`,];
     }
 
     if (success && destination) {

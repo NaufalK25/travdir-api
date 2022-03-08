@@ -1,10 +1,10 @@
-import { Express, Request, Response } from 'express';
+import { Express } from 'express';
 import { apiUrl, HEADER } from '../config/constants';
 import { err404Route, err405Route, err500Route } from '../routes/errorRoutes';
 
-export const baseRoutes = (app: Express): void => {
+export const baseRoutes = (app: Express) => {
     app.route("/")
-        .get((req: Request, res: Response) => {
+        .get((req, res) => {
             res.status(200)
                 .header(HEADER)
                 .json({
@@ -20,7 +20,7 @@ export const baseRoutes = (app: Express): void => {
         })
         .all(err405Route);
     app.route("/api")
-        .get((req: Request, res: Response): void => {
+        .get((Request, res) => {
             res.status(200)
                 .header(HEADER)
                 .json({

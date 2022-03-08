@@ -34,7 +34,7 @@ const locationSchema = new Schema<ILocation>({
         type: String,
         required: false,
         match: /^[1-9]\d{4}$/,
-    }
+    },
 });
 
 const destinationSchema = new Schema<IDestination>({

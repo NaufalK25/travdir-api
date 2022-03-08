@@ -1,13 +1,13 @@
-import { ObjectId } from 'mongodb';
+import { Schema } from 'mongoose';
 
 export interface ICoordinates {
-    _id: ObjectId;
+    _id: Schema.Types.ObjectId;
     latitude: number;
     longitude: number;
 }
 
 export interface ILocation {
-    _id: ObjectId;
+    _id: Schema.Types.ObjectId;
     coordinates: ICoordinates;
     address: string;
     city: string;
@@ -16,7 +16,7 @@ export interface ILocation {
 }
 
 export interface IDestination {
-    _id: ObjectId;
+    _id: Schema.Types.ObjectId;
     name: string;
     slug: string;
     description: string;

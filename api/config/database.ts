@@ -1,8 +1,8 @@
-import { CallbackError, connect } from 'mongoose';
+import { connect } from 'mongoose';
 
 connect(
     process.env.MONGO_URI || 'mongodb://localhost:27017/travdir',
-    (err: CallbackError): void => {
+    (err) => {
         if (!err) {
             console.log('MongoDB Connection Succeeded.');
         } else {

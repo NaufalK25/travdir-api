@@ -5,6 +5,9 @@
 # Environment variables
 .env
 
+# Config and Linter Files
+.editorconfig
+
 # Visual Studio Code
 .vscode
 

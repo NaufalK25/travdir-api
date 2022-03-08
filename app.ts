@@ -29,6 +29,6 @@ destinationRoutes(app);
 baseRoutes(app);
 
 // Start server
-app.listen(port, (): void => {
+app.listen(port, () => {
     console.log(`TravDir API is listening to ${baseUrl}`);
 });
