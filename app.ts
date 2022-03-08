@@ -2,7 +2,6 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from 'dotenv';
 import express from "express";
-import morgan from "morgan";
 import { baseUrl } from "./api/config/constants";
 import { baseRoutes } from "./api/routes/baseRoutes";
 import { destinationRoutes } from "./api/routes/destinationRoutes";
@@ -14,7 +13,6 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Third Party Middlewares
-app.use(morgan("dev"));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true, }));
