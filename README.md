@@ -1,37 +1,52 @@
 # Travel Directory API (TravDir)
 
-REST API that contain list of all tourist destination located in Indonesia. Built with [Node.js](https://nodejs.org/en/) and [Express.js](https://expressjs.com/).
+REST API that contain list of all tourist destination located in Indonesia. Built with Node.js and `Express`. I build this API so I can learn how to build REST API with `Node.js` and `Express` along with `TypeScript` and `MongoDB`.
 
-### How To Run In Development
+### Prerequisites
+
+1. [Node.js](https://nodejs.org/en/)
+    ```
+    node --version
+    npm --version
+    ```
+2. [Git](https://git-scm.com/downloads)
+    ```
+    git --version
+    ```
+3. [MongoDB](https://www.mongodb.com/try/download/community)
+    ```
+    mongo --version
+    ```
+4. [Heroku](https://devcenter.heroku.com/articles/heroku-cli)
+    ```
+    heroku --version
+    ```
+
+### How To Run In Local
 
 1. Clone the repository
-
     ```
     git clone https://github.com/NaufalK25/travdir-api.git
     ```
-
-2. Install all dependencies including dev dependencies
-
+2. Install dependencies
     ```
-    npm i
-    // or
     npm install
     ```
-
-3. Run application
-
+3. Build the application
     ```
-    npm start
-    // or
-    npm run start
+    npm run build
+    ```
+4. Run the application
+    ```
+    npm run dev
     ```
 
 Status: `Deployed`
 
 ### Documentation
 
-| Parameter         | Description                                 |
-| ----------------- | ------------------------------------------- |
+| Parameter         | Description                             |
+| ----------------- | --------------------------------------- |
 | `destinationSlug` | slug to get detail for each destination |
 
 Base URL: https://travdir-api.herokuapp.com/
