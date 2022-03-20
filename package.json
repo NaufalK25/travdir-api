@@ -13,7 +13,7 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "NaufalK25",
-    "license": "Apache-2.0",
+    "license": "",
     "keywords": [
         "travel",
         "destination",
