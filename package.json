@@ -9,7 +9,7 @@
         "build": "npm run build-ts",
         "start": "npm run serve",
         "serve": "node dist/app.js",
-        "dev": "npm run build && tsnd --respawn --pretty --transpile-only app.ts",
+        "dev": "&& tsnd --respawn --pretty --transpile-only app.ts",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "NaufalK25",
